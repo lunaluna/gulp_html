@@ -1,5 +1,5 @@
 /*
-gulpfile.js for aceunion-html-package 1.1.0
+gulpfile.js for aceunion-html-package 1.2.0
 */
 
 var gulp         = require('gulp');
@@ -12,45 +12,35 @@ var csso         = require('gulp-csso');
 var htmlhint     = require("gulp-htmlhint");
 var imagemin     = require('gulp-imagemin');
 var jshint       = require('gulp-jshint');
-var notify       = require('gulp-notify');
 var plumber      = require('gulp-plumber');
-var runSequence  = require('run-sequence');
 var sass         = require('gulp-sass');
-var saveLicense  = require('uglify-save-license');
 var stylish      = require('jshint-stylish');
 var uglify       = require('gulp-uglify');
 
 
-gulp.task('cssdev-primary', function() {
+gulp.task('cssdev', function() {
   return gulp.src('project/resources/sass/*.scss')
     .pipe(plumber({
       errorHandler: notify.onError("Error: <%= error.message %>")
     }))
-      .pipe(sass().on('error', sass.logError))
-      .pipe(autoprefixer({
-        browsers: ['last 2 version', 'ie 9']
-      }))
-    .pipe(gulp.dest('project/resources/css')); // expanded書き出し先
-});
-
-gulp.task('cssdev-secondary', function() {
-  return gulp.src('project/resources/css/style.css')
-    .pipe(plumber())
-    .pipe(concat('top.css'))
+    .pipe(sass().on('error', sass.logError))
+    .pipe(autoprefixer({
+      browsers: ['last 2 version', 'ie 9']
+    }))
+    .pipe(concat('style.css'))
     .pipe(cmq({
       log: true
     }))
     .pipe(csso())
-    .pipe(gulp.dest('project')); // compressed書き出し先
-});
-
-gulp.task('cssdev', function(callback) {
-  runSequence('cssdev-primary', 'cssdev-secondary', 'bs-reload' ,callback);
+    .pipe(gulp.dest('project'))
+    .pipe(browserSync.reload({
+      stream: true
+    }));
 });
 
 
 gulp.task('jsdev', function() {
-  return gulp.src('project/resources/js/*.js')
+  return gulp.src('project/resources/js/setting.js')
     .pipe(uglify({
       preserveComments: saveLicense
     }))
@@ -90,10 +80,9 @@ gulp.task('htmlhint', function() {
 gulp.task('browser-sync', function() {
   browserSync.init({
     server: {
-      baseDir: 'project', // ルートディレクトリ
+      baseDir: 'project',
       index: 'index.html'
     },
-    // tunnel: true,
     notify: true
   });
 });
@@ -112,5 +101,6 @@ gulp.task('watch', function() {
 });
 
 
-gulp.task('dev', ['images', 'cssdev', 'jsdev']);
+
+gulp.task('dev', ['images', 'cssdev', 'jsplugin', 'jsdev']);
 gulp.task('default', ['browser-sync', 'htmlhint', 'lint', 'dev', 'watch']);

@@ -8,9 +8,17 @@ $ npm start
 
 ## changelog
 
+### 1.2.0
+#### 2016.03.11
+- プラグインバージョンアップ
+- task: CSS:extended 書き出し 削除
+
 ### 1.1.0
 #### 2015.12.07
-- gulp-notify 追加
+- プラグインバージョンアップ
+- gulp-notify 追加してエラーをデスクトップ通知
+- gulp-sassにエラーログ出力の記述追加
+- gulp-plumberにエラーログ出力の記述を追加して、sassのコンパイル失敗時でもタスクが止まらないよう修正
 - gulp-autoprefixer pre-fix ie9〜に変更
 - gulp-sourcemaps 削除
 
