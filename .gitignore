@@ -1,0 +1,30 @@
+# gitignore
+
+# numerous always-ignore extensions
+*~
+*.diff
+*.orig
+*.log
+*.swp
+*.zip
+*.csv
+*.dat
+*.gz
+
+# OS or Editor folders
+.DS_Store
+>_*
+Thumbs.db
+.cache
+
+# Folders to ignore
+.hg
+.svn
+.ssh
+.grunt
+.sass-cache
+.vagrant
+node_modules
+components
+bower_compornents
+logs
