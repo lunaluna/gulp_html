@@ -12,6 +12,7 @@ var csso         = require('gulp-csso');
 var htmlhint     = require("gulp-htmlhint");
 var imagemin     = require('gulp-imagemin');
 var jshint       = require('gulp-jshint');
+var notify       = require('gulp-notify');
 var plumber      = require('gulp-plumber');
 var sass         = require('gulp-sass');
 var stylish      = require('jshint-stylish');
@@ -41,9 +42,7 @@ gulp.task('cssdev', function() {
 
 gulp.task('jsdev', function() {
   return gulp.src('project/resources/js/setting.js')
-    .pipe(uglify({
-      preserveComments: saveLicense
-    }))
+    .pipe(uglify())
     .pipe(gulp.dest('project/js'))
     .pipe(browserSync.reload({
       stream: true
@@ -102,5 +101,5 @@ gulp.task('watch', function() {
 
 
 
-gulp.task('dev', ['images', 'cssdev', 'jsplugin', 'jsdev']);
+gulp.task('dev', ['images', 'cssdev', 'jsdev']);
 gulp.task('default', ['browser-sync', 'htmlhint', 'lint', 'dev', 'watch']);
