@@ -29,9 +29,4 @@ components
 bower_compornents
 logs
 
-# ignore compiled files
-project/style.css
-project/js/setting.js
-project/resources/css/*.css
-project/images/*
 project/wp-includes/*
